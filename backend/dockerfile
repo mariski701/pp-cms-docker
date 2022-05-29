@@ -1,0 +1,17 @@
+FROM ubuntu
+RUN apt-get update -y 
+RUN apt-get install git -y
+RUN apt-get install -y openjdk-11-jre-headless
+RUN apt-get install -y maven
+EXPOSE 8080
+
+#RUN git -b "backendAfterRefactor" clone https://github.com/mariski701/PP-CMS.git
+RUN git clone --branch 'backendAfterRefactor' https://github.com/mariski701/PP-CMS.git
+RUN mkdir -p /PP-CMS/cms.pp/target/data
+RUN cp /PP-CMS/cms.pp/data/dbppcms.mv.db /PP-CMS/cms.pp/target/data/
+WORKDIR "/PP-CMS/cms.pp"
+
+RUN mvn package -DskipTests
+COPY . .
+WORKDIR "/PP-CMS/cms.pp/target/"
+CMD ["java", "-jar", "cms.pp-0.0.1-SNAPSHOT.jar"]

@@ -1,0 +1,16 @@
+FROM ubuntu
+RUN apt-get update -y 
+RUN apt-get install git -y
+RUN apt-get install -y curl
+RUN apt-get install -y unzip
+RUN curl -sL https://deb.nodesource.com/setup_14.x | bash  
+RUN apt-get install -y nodejs 
+RUN npm install -g typescript
+RUN npm install -g @angular/cli
+RUN git clone --branch 'prod' https://github.com/kamkow10/pp-cms-frontend.git
+
+EXPOSE 4200
+COPY . .
+WORKDIR "/pp-cms-frontend/"
+RUN npm install
+CMD ["ng", "serve", "--host", "0.0.0.0"]
