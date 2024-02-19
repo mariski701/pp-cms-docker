@@ -5,7 +5,7 @@ RUN apt-get install -y openjdk-11-jre-headless
 RUN apt-get install -y maven
 EXPOSE 8080
 
-#RUN git -b "backendAfterRefactor" clone https://github.com/mariski701/PP-CMS.git
+#RUN git -b "main" clone https://github.com/mariski701/PP-CMS.git
 RUN git clone --branch 'backendAfterRefactor' https://github.com/mariski701/PP-CMS.git
 RUN mkdir -p /PP-CMS/cms.pp/target/data
 RUN cp /PP-CMS/cms.pp/data/dbppcms.mv.db /PP-CMS/cms.pp/target/data/
